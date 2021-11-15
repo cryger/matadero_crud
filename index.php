@@ -36,7 +36,7 @@
     <!--Componentes de la pagina principal-->
     <div class="container">
       <div class="row">
-        <div class="jumbotron">
+        <div class="jumbotron mt-4">
           <h2>Bienvenido al MATADERO SALUIG</h2>
         </div>
       </div>
