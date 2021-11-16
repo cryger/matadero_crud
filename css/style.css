@@ -1,0 +1,23 @@
+container-login{
+    position: absolute;
+    align-content: center;
+    size: 0em;
+}
+body{
+    background-color: orange;
+    background-repeat: no-repeat;
+    background-position: 0rem;
+}
+.card-header {
+    padding: 0.75
+rem
+ 1.25
+rem
+;
+    margin-bottom: 0;
+    /*background-color: rgba(0,0,0,.03);*/
+    background-color: orange;
+    border-bottom: 1
+px
+ solid rgba(0,0,0,.125);
+}
