@@ -11,7 +11,7 @@
     <title>INDEX</title>
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-warning bg-warning">
       <a class="navbar-brand" href="#">MATADERO SALUIG</a>
       <button
         class="navbar-toggler"
@@ -33,7 +33,18 @@
         </div>
       </div>
     </nav>
-    <!--Componentes de la pagina principal-->
+    <!--Componentes de la pagina Login-->
+    <div class="container container-fluid container-responsive mt-4" >
+        <div class="row">
+            <form action="">
+                <div class="form-control">
+                    <h2>LOGIN</h2>
+                    <label for="">Usuario:</label>
+                    <input type="text">
+                </div>
+            </form>
+        </div>
+    </div>
     
   </body>
 </html>

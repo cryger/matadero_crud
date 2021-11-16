@@ -11,7 +11,7 @@
     <title>INDEX</title>
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-warning bg-warning">
       <a class="navbar-brand" href="#">MATADERO SALUIG</a>
       <button
         class="navbar-toggler"
@@ -26,7 +26,7 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-          <a class="nav-item nav-link active" href="#"
+          <a class="nav-item nav-link active" href="index.php"
             >Home <span class="sr-only">(current)</span></a
           >
           <a class="nav-item nav-link" href="login.php">Login</a>
@@ -34,7 +34,7 @@
       </div>
     </nav>
     <!--Componentes de la pagina principal-->
-    <div class="container">
+    <div class="container container-fluid">
       <div class="row">
         <div class="jumbotron mt-4">
           <h2>Bienvenido al MATADERO SALUIG</h2>
