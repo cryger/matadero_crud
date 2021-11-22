@@ -1,10 +1,18 @@
+<?php
+//including the database connection file
+include_once("config.php");
+
+//fetching data in descending order (lastest entry first)
+//$result = mysql_query("SELECT * FROM users ORDER BY id DESC"); // mysql_query is deprecated
+$result = mysqli_query($mysqli, "SELECT * FROM cliente ORDER BY cli_id DESC"); // using mysqli_query instead
+?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>LuigSa | Pedidos</title>
+    <title>LuigSa</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -127,8 +135,9 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>PEDIDOS</h1>
+                            <h1>LISTADO DE CLIENTES</h1>
                         </div>
+
                     </div>
                 </div>
             </section>
@@ -137,6 +146,74 @@
             <!-- MAIN CONTENT -->
             <section class="content">
                 <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">
+                                        DataTable with minimal features & hover style
+                                    </h3>
+                                </div>
+                                <div class="col-sm-6">
+                                    <a href="add.php" type="button" class="btn btn-success">Add New Data</a><br /><br />
+                                </div>
+                                <!-- /.card-header -->
+                                <div class="card-body">
+                                    <table id="datatable" class="table table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>NOMBRE</th>
+                                                <th>APELLIDO</th>
+                                                <th>CORREO</th>
+                                                <th>DIRECCION</th>
+                                                <th>TELEFONO</th>
+                                                <th>ACCIONES</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            <tr>
+                                                <?php
+                                                //while($res = mysql_fetch_array($result)) { // mysql_fetch_array is deprecated, we need to use mysqli_fetch_array 
+                                                while ($res = mysqli_fetch_array($result)) {
+                                                    echo "<tr>";
+                                                    echo "<td>" . $res['cli_id'] . "</td>";
+                                                    echo "<td>" . $res['cli_nombre'] . "</td>";
+                                                    echo "<td>" . $res['cli_apellido'] . "</td>";
+                                                    echo "<td>" . $res['cli_correo'] . "</td>";
+                                                    echo "<td>" . $res['cli_direccion'] . "</td>";
+                                                    echo "<td>" . $res['cli_telefono'] . "</td>";
+                                                    echo "<td><a class='btn btn-warning' href=\"edit.php?cli_id=$res[cli_id]\">Edit</a> | <a class='btn btn-danger' href=\"delete.php?cli_id=$res[cli_id]\" onClick=\"return confirm('Are you sure you want to delete?')\">Delete</a></td>";
+                                                }
+                                                ?>
+                                            </tr>
+                                        </tbody>
+
+                                        <!-- <tfoot>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>NOMBRE</th>
+                                                <th>APELLIDO</th>
+                                                <th>CORREO</th>
+                                                <th>DIRECCION</th>
+                                                <th>TELEFONO</th>
+                                                <th>ACCIONES</th>
+                                            </tr>
+                                        </tfoot> -->
+                                    </table>
+
+
+
+                                </div>
+
+                                <!-- /.card-body -->
+                            </div>
+                            <!-- /.card -->
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                    <!-- /.row -->
                 </div>
                 <!-- /.container-fluid -->
             </section>

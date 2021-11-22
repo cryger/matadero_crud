@@ -1,10 +1,18 @@
+<?php
+//including the database connection file
+include_once("config.php");
+
+//fetching data in descending order (lastest entry first)
+//$result = mysql_query("SELECT * FROM users ORDER BY id DESC"); // mysql_query is deprecated
+$result = mysqli_query($mysqli, "SELECT * FROM venta ORDER BY ven_id DESC"); // using mysqli_query instead
+?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>LuigSa | Ventas</title>
+    <title>LuigSa</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -64,7 +72,6 @@
         </nav>
         <!-- /NAVBAR -->
 
-        <!-- SIDE_BAR -->
         <aside class="_sidebar main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
             <a href="./index.html" class="brand-link">
@@ -128,8 +135,9 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>VENTAS</h1>
+                            <h1>LISTADO DE CLIENTES</h1>
                         </div>
+
                     </div>
                 </div>
             </section>
@@ -138,6 +146,78 @@
             <!-- MAIN CONTENT -->
             <section class="content">
                 <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">
+                                        DataTable with minimal features & hover style
+                                    </h3>
+                                </div>
+                                <div class="col-sm-6">
+                                    <a href="add.php" type="button" class="btn btn-success">Add New Data</a><br /><br />
+                                </div>
+                                <!-- /.card-header -->
+                                <div class="card-body">
+                                    <table id="datatable" class="table table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>ID empleado</th>
+                                                <th>Id Animal</th>
+                                                <th>Id pedido</th>
+                                                <th>Fecha de venta</th>
+                                                <th>Descripcion</th>
+                                                <th>SUbtotal de Venta</th>
+                                                <th>Total de Venta</th>
+                                                <th>ACCIONES</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            <tr>
+                                                <?php
+                                                //while($res = mysql_fetch_array($result)) { // mysql_fetch_array is deprecated, we need to use mysqli_fetch_array 
+                                                while ($res = mysqli_fetch_array($result)) {
+                                                    echo "<tr>";
+                                                    echo "<td>" . $res['ven_id'] . "</td>";
+                                                    echo "<td>" . $res['ven_empl_id'] . "</td>";
+                                                    echo "<td>" . $res['ven_ani_id'] . "</td>";
+                                                    echo "<td>" . $res['ven_ped_id'] . "</td>";
+                                                    echo "<td>" . $res['ven_fecha_venta'] . "</td>";
+                                                    echo "<td>" . $res['ven_descripcion'] . "</td>";
+                                                    echo "<td>" . $res['ven_subtotal'] . "</td>";
+                                                    echo "<td>" . $res['ven_total'] . "</td>";
+                                                    echo "<td><a class='btn btn-warning' href=\"edit.php?ven_id=$res[ven_id]\">Edit</a> | <a class='btn btn-danger' href=\"delete.php?ven_id=$res[ven_id]\" onClick=\"return confirm('Are you sure you want to delete?')\">Delete</a></td>";
+                                                }
+                                                ?>
+                                            </tr>
+                                        </tbody>
+
+                                        <!-- <tfoot>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>NOMBRE</th>
+                                                <th>APELLIDO</th>
+                                                <th>CORREO</th>
+                                                <th>DIRECCION</th>
+                                                <th>TELEFONO</th>
+                                                <th>ACCIONES</th>
+                                            </tr>
+                                        </tfoot> -->
+                                    </table>
+
+
+
+                                </div>
+
+                                <!-- /.card-body -->
+                            </div>
+                            <!-- /.card -->
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                    <!-- /.row -->
                 </div>
                 <!-- /.container-fluid -->
             </section>
