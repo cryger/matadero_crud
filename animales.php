@@ -11,13 +11,15 @@ $result = mysqli_query($mysqli, "SELECT * FROM animal ORDER BY ani_id DESC"); //
 // include_once("config.php");
 
 if (isset($_POST['Submit'])) {
-    $ani_id = mysqli_real_escape_string($mysqli, $_POST['ani_id$ani_id']);
+    $ani_id = mysqli_real_escape_string($mysqli, $_POST['ani_id']);
     $ani_nombre = mysqli_real_escape_string($mysqli, $_POST['ani_nombre']);
     $ani_color = mysqli_real_escape_string($mysqli, $_POST['ani_color']);
     $ani_raza = mysqli_real_escape_string($mysqli, $_POST['ani_raza']);
     $ani_altura = mysqli_real_escape_string($mysqli, $_POST['ani_altura']);
     $ani_peso = mysqli_real_escape_string($mysqli, $_POST['ani_peso']);
     $ani_cli_id = mysqli_real_escape_string($mysqli, $_POST['ani_cli_id']);
+
+    print_r($ani_id);
 
     // checking empty fields
     if (empty($ani_id) || empty($ani_nombre) || empty($ani_color) || empty($ani_raza) || empty($ani_altura) || empty($ani_peso) || empty($ani_cli_id)) {
@@ -53,7 +55,7 @@ if (isset($_POST['Submit'])) {
 
         //insert data to database	
         $result = mysqli_query($mysqli, "INSERT INTO animal(ani_id,ani_nombre,ani_color,ani_raza,ani_altura,ani_peso,ani_cli_id) VALUES('$ani_id','$ani_nombre','$ani_color','$ani_raza','$ani_altura','$ani_peso','$ani_cli_id')");
-        var_dump($result);
+
         //display success message
         echo "<font color='green'>Data added successfully.";
         echo "<br/><a href='index.php'>View Result</a>";
@@ -231,19 +233,20 @@ if (isset($_POST['Submit'])) {
                                                             </button>
                                                         </div>
                                                         <div class="modal-body">
-                                                            <form action="#" method="POST" id="form1">
+                                                            <form action="animales.php" method="POST" id="form1">
                                                                 <div class="container-fluid">
                                                                     <div class="row">
                                                                         <div class="form-group col-md-6">
                                                                             <label for="ani_id">ID</label>
                                                                             <input type="text" class="form-control"
-                                                                                id="ani_id" placeholder="Ingrese ID">
+                                                                                id="ani_id" name="ani_id"
+                                                                                placeholder="Ingrese ID">
 
                                                                         </div>
                                                                         <div class="form-group col-md-6">
                                                                             <label for="ani_nombre">Nombre</label>
                                                                             <input type="text" class="form-control"
-                                                                                id="ani_nombre"
+                                                                                id="ani_nombre" name="ani_nombre"
                                                                                 placeholder="Ingrese Nombre">
 
                                                                         </div>
@@ -252,14 +255,14 @@ if (isset($_POST['Submit'])) {
                                                                         <div class="form-group col-md-6">
                                                                             <label for="ani_color">Color</label>
                                                                             <input type="text" class="form-control"
-                                                                                id="ani_color"
+                                                                                id="ani_color" name="ani_color"
                                                                                 placeholder="Ingrese Color">
 
                                                                         </div>
                                                                         <div class="form-group col-md-6">
                                                                             <label for="ani_raza">Raza</label>
                                                                             <input type="text" class="form-control"
-                                                                                id="ani_raza"
+                                                                                id="ani_raza" name="ani_raza"
                                                                                 placeholder="Ingrese ingrese raza">
 
                                                                         </div>
@@ -269,14 +272,14 @@ if (isset($_POST['Submit'])) {
                                                                         <div class="form-group col-md-6">
                                                                             <label for="ani_altura">Altura</label>
                                                                             <input type="text" class="form-control"
-                                                                                id="ani_altura"
+                                                                                id="ani_altura" name="ani_altura"
                                                                                 placeholder="Ingrese Altura">
 
                                                                         </div>
                                                                         <div class="form-group col-md-6">
                                                                             <label for="ani_peso">Peso</label>
                                                                             <input type="numeric" class="form-control"
-                                                                                id="ani_peso"
+                                                                                id="ani_peso" name="ani_peso"
                                                                                 placeholder="Ingrese Peso">
 
                                                                         </div>
@@ -285,19 +288,19 @@ if (isset($_POST['Submit'])) {
                                                                         <div class="form-group col-md-12">
                                                                             <label for="ani_cli_id">Id Cliente</label>
                                                                             <input type="text" class="form-control"
-                                                                                id="ani_cli_id"
+                                                                                id="ani_cli_id" name="ani_cli_id"
                                                                                 placeholder="Ingrese Id CLiente">
 
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                                 <button type="submit" class="btn btn-primary"
-                                                                    id="submit" name="submit"
-                                                                    value="submit">agregar</button>
+                                                                    id="submit" name="Submit"
+                                                                    value="Submit">agregar</button>
 
 
                                                             </form>
-                                                            <script
+                                                            <!-- <script
                                                                 src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js">
                                                             </script>
                                                             <script>
@@ -323,7 +326,7 @@ if (isset($_POST['Submit'])) {
                                                                     })
                                                                 });
                                                             });
-                                                            </script>
+                                                            </script> -->
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary"

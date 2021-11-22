@@ -1,73 +1,54 @@
 <?php
-// including the database connection file
+//including the database connection file
 include_once("config.php");
 
-if (isset($_POST['update'])) {
-
-    $ani_id = mysqli_real_escape_string($mysqli, $_POST['ani_id']);
-
-    $ani_nombre = mysqli_real_escape_string($mysqli, $_POST['ani_nombre']);
-    $ani_color = mysqli_real_escape_string($mysqli, $_POST['ani_color']);
-    $ani_raza = mysqli_real_escape_string($mysqli, $_POST['ani_raza']);
-    $ani_altura = mysqli_real_escape_string($mysqli, $_POST['ani_altura']);
-    $ani_peso = mysqli_real_escape_string($mysqli, $_POST['ani_peso']);
-    $ani_cli_id = mysqli_real_escape_string($mysqli, $_POST['ani_cli_id']);
+if (isset($_POST['Submit'])) {
+    $cli_id = mysqli_real_escape_string($mysqli, $_POST['cli_id']);
+    $cli_nombre = mysqli_real_escape_string($mysqli, $_POST['cli_nombre']);
+    $cli_apellido = mysqli_real_escape_string($mysqli, $_POST['cli_apellido']);
+    $cli_correo = mysqli_real_escape_string($mysqli, $_POST['cli_correo']);
+    $cli_direccion = mysqli_real_escape_string($mysqli, $_POST['cli_direccion']);
+    $cli_telefono = mysqli_real_escape_string($mysqli, $_POST['cli_telefono']);
 
     // checking empty fields
-    if (empty($ani_id) || empty($ani_nombre) || empty($ani_color) || empty($ani_raza) || empty($ani_altura) || empty($ani_peso) || empty($ani_cli_id)) {
+    if (empty($cli_id) || empty($cli_nombre) || empty($cli_apellido) || empty($cli_correo) || empty($cli_direccion) || empty($cli_telefono)) {
 
-        if (empty($ani_id)) {
+        if (empty($cli_id)) {
             echo "<font color='red'>ID field is empty.</font><br/>";
         }
 
-        if (empty($ani_nombre)) {
-            echo "<font color='red'>nombre field is empty.</font><br/>";
+        if (empty($cli_nombre)) {
+            echo "<font color='red'>Nombre field is empty.</font><br/>";
         }
 
-        if (empty($ani_color)) {
-            echo "<font color='red'>color field is empty.</font><br/>";
+        if (empty($cli_apellido)) {
+            echo "<font color='red'>Apellido field is empty.</font><br/>";
         }
-        if (empty($ani_raza)) {
-            echo "<font color='red'>raza field is empty.</font><br/>";
+        if (empty($cli_correo)) {
+            echo "<font color='red'>Correo field is empty.</font><br/>";
+        }
+        if (empty($cli_direccion)) {
+            echo "<font color='red'>Direccion field is empty.</font><br/>";
+        }
+        if (empty($cli_telefono)) {
+            echo "<font color='red'>Telefono field is empty.</font><br/>";
         }
 
-        if (empty($ani_altura)) {
-            echo "<font color='red'>altura field is empty.</font><br/>";
-        }
-
-        if (empty($ani_peso)) {
-            echo "<font color='red'>peso field is empty.</font><br/>";
-        }
-        if (empty($ani_cli_id)) {
-            echo "<font color='red'>ID del cliente field is empty.</font><br/>";
-        }
+        //link to the previous page
+        echo "<br/><a href='javascript:self.history.back();'>Go Back</a>";
     } else {
-        //updating the table
-        $result = mysqli_query($mysqli, "UPDATE animal SET ani_id='$ani_id',ani_nombre='$ani_nombre',ani_color='$ani_color',ani_raza='$ani_raza',ani_altura='$ani_altura',ani_peso='$ani_peso' WHERE ani_id=$ani_id");
+        // if all the fields are filled (not empty) 
 
-        //redirectig to the display page. In our case, it is index.php
-        header("Location: animal.php");
+        //insert data to database	
+        $result = mysqli_query($mysqli, "INSERT INTO cliente(cli_id,cli_nombre,cli_apellido,cli_correo,cli_direccion,cli_telefono) VALUES('$cli_id','$cli_nombre','$cli_apellido','$cli_correo','$cli_direccion','$cli_telefono')");
+
+        //display success message
+        echo "<font color='green'>Data added successfully.";
+        echo "<br/><a href='index.php'>View Result</a>";
     }
 }
 ?>
-<?php
-//getting id from url
-$ani_id = $_GET['ani_id'];
 
-//selecting data associated with this particular id
-$result = mysqli_query($mysqli, "SELECT * FROM animal");
-
-while ($res = mysqli_fetch_array($result)) {
-
-    $ani_id = $res['ani_id'];
-    $ani_nombre = $res['ani_nombre'];
-    $ani_color = $res['ani_color'];
-    $ani_raza = $res['ani_raza'];
-    $ani_altura = $res['ani_altura'];
-    $ani_peso = $res['ani_peso'];
-    $ani_cli_id = $res['ani_cli_id'];
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -151,7 +132,7 @@ while ($res = mysqli_fetch_array($result)) {
                         <li class="nav-item">
                             <a href="./index.php" class="nav-link">
                                 <i class="nav-icon fas fa-home"></i>
-                                <p>EDITAR</p>
+                                <p>INICIO</p>
                             </a>
                         </li>
 
@@ -200,65 +181,47 @@ while ($res = mysqli_fetch_array($result)) {
                         <div class="col-sm-6">
                             <h1>INICIO</h1>
                         </div>
-                        <!--/Section of contenido de la pagina de editar -->
-
                         <div class="container">
-                            <div class="row">
-                                <div class="form-control">
-                                    <a href="index.php">Home</a>
-                                    <br /><br />
-                                    <div class="table table-bordered">
-                                        <form name="form1" method="post" action="edit_animal.php">
-                                            <div class="form-group">
-                                                <label>ID</label>
-                                                <input type="text" class="form-control" name="ani_id"
-                                                    value="<?php echo $ani_id; ?>">
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Nombre</label>
-                                                <input type="text" class="form-control" name="ani_nombre"
-                                                    value="<?php echo $ani_nombre; ?>">
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Color</label>
-                                                <input type="text" class="form-control" name="ani_color"
-                                                    value="<?php echo $ani_color; ?>">
+                            <div class="form-control table table-bordered">
+                                <div class="row">
+                                    <label for="">AGREGAR CLIENTE</label>
+                                </div>
+                                <form action="add.php" method="post" name="form1">
 
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Raza</label>
-                                                <input type="text" class="form-control" name="ani_raza"
-                                                    value="<?php echo $ani_raza; ?>">
-
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Altura</label>
-                                                <input type="text" class="form-control" name="ani_altura"
-                                                    value="<?php echo $ani_altura; ?>">
-
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Peso</label>
-                                                <input type="text" class="form-control" name="ani_peso"
-                                                    value="<?php echo $ani_peso; ?>">
-
-                                            </div>
-                                            <div class="form-group">
-                                                <label>ID de Cliente</label>
-                                                <input type="text" class="form-control" name="ani_peso"
-                                                    value="<?php echo $ani_cli_id; ?>">
-
-                                            </div>
-
-                                            <td><input class="btn btn-info form-control" type="submit" name="update"
-                                                    value="Update">
-                                            </td>
-                                        </form>
+                                    <div class="form-group">
+                                        <label>ID</label>
+                                        <input type="text" class="form-control" name="cli_id">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Nombre</label>
+                                        <input type="text" class="form-control" name="cli_nombre">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Apellido</label>
+                                        <input type="text" class="form-control" name="cli_apellido">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Correo</label>
+                                        <input type="text" class="form-control" name="cli_correo">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Direccion</label>
+                                        <input type="text" class="form-control" name="cli_direccion">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Telefono</label>
+                                        <input type="text" class="form-control" name="cli_telefono">
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="btn btn-success" type="submit" name="Submit" value="Add">
                                     </div>
 
+                                </form>
 
-                                </div>
                             </div>
+
+
+
                         </div>
                     </div>
                 </div>
@@ -267,19 +230,14 @@ while ($res = mysqli_fetch_array($result)) {
 
             <!-- MAIN CONTENT -->
             <section class="content">
-                <!-- <div class="container-fluid"></div> -->
+                <div class="container-fluid"></div>
                 <!-- /.container-fluid -->
             </section>
             <!-- /MAIN CONTENT -->
         </main>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
+
         <!-- FOOTER -->
-        <footer class="main-footer footer-responsive">
+        <footer class="main-footer">
             <strong>Copyright © 2021
                 <a href="https://digitalcodegroup.com/">Digital Code Group - By Henry Garcia</a>.</strong>
             All rights reserved.
