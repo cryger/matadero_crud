@@ -6,6 +6,55 @@ include_once("config.php");
 //$result = mysqli_query("SELECT * FROM animal "); // mysql_query is deprecated
 //$result = mysqli_query($mysqli, "SELECT  a.ani_id,a.ani_nombre,a.ani_color,a.ani_raza, a.ani__altura, a.ani_peso, a.ani_cli_id,c.cli_id FROM animal as a, cliente as c where a.cli_id = c.cli_id"); // using mysqli_query instead
 $result = mysqli_query($mysqli, "SELECT * FROM animal ORDER BY ani_id DESC"); // using mysqli_query instead
+
+//including the database connection file
+// include_once("config.php");
+
+if (isset($_POST['Submit'])) {
+    $ani_id = mysqli_real_escape_string($mysqli, $_POST['ani_id$ani_id']);
+    $ani_nombre = mysqli_real_escape_string($mysqli, $_POST['ani_nombre']);
+    $ani_color = mysqli_real_escape_string($mysqli, $_POST['ani_color']);
+    $ani_raza = mysqli_real_escape_string($mysqli, $_POST['ani_raza']);
+    $ani_altura = mysqli_real_escape_string($mysqli, $_POST['ani_altura']);
+    $ani_peso = mysqli_real_escape_string($mysqli, $_POST['ani_peso']);
+
+    // checking empty fields
+    if (empty($ani_id) || empty($ani_nombre) || empty($ani_color) || empty($ani_raza) || empty($ani_altura) || empty($ani_peso)) {
+
+        if (empty($ani_id)) {
+            echo "<font color='red'>ID field is empty.</font><br/>";
+        }
+
+        if (empty($ani_nombre)) {
+            echo "<font color='red'>Nombre field is empty.</font><br/>";
+        }
+
+        if (empty($ani_color)) {
+            echo "<font color='red'>Apellido field is empty.</font><br/>";
+        }
+        if (empty($ani_raza)) {
+            echo "<font color='red'>Correo field is empty.</font><br/>";
+        }
+        if (empty($ani_altura)) {
+            echo "<font color='red'>Direccion field is empty.</font><br/>";
+        }
+        if (empty($ani_peso)) {
+            echo "<font color='red'>Telefono field is empty.</font><br/>";
+        }
+
+        //link to the previous page
+        echo "<br/><a href='javascript:self.history.back();'>Go Back</a>";
+    } else {
+        // if all the fields are filled (not empty) 
+
+        //insert data to database	
+        $result = mysqli_query($mysqli, "INSERT INTO animal(ani_id,ani_nombre,ani_color,ani_raza,ani_altura,cli_telefono) VALUES('$ani_id','$ani_nombre','$ani_color','$ani_raza','$ani_altura','$ani_peso','')");
+        var_dump($reesul);
+        //display success message
+        echo "<font color='green'>Data added successfully.";
+        echo "<br/><a href='index.php'>View Result</a>";
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -161,55 +210,101 @@ $result = mysqli_query($mysqli, "SELECT * FROM animal ORDER BY ani_id DESC"); //
                                             <!-- Button trigger modal -->
                                             <button type="button" class="btn btn-primary" data-toggle="modal"
                                                 data-target="#exampleModalLong">
-                                                Launch demo modal
+                                                Agregar Animal
                                             </button>
 
                                             <!-- Modal -->
                                             <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog"
                                                 aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-                                                <div class="modal-dialog" role="document">
+                                                <div class="modal-dialog modal-lg" role="document">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h5 class="modal-title" id="exampleModalLongTitle">Modal
-                                                                title</h5>
+                                                            <h5 class="modal-title" id="exampleModalLongTitle">Agregar
+                                                                Animal</h5>
                                                             <button type="button" class="close" data-dismiss="modal"
                                                                 aria-label="Close">
                                                                 <span aria-hidden="true">&times;</span>
                                                             </button>
                                                         </div>
                                                         <div class="modal-body">
-                                                            <form>
-                                                                <div class="form-group">
-                                                                    <label for="ani_id">ID
-                                                                        address</label>
-                                                                    <input type="email" class="form-control" id="ani_id"
-                                                                        aria-describedby="emailHelp"
-                                                                        placeholder="Enter email">
-                                                                    <small id="emailHelp"
-                                                                        class="form-text text-muted">We'll never share
-                                                                        your email with anyone else.</small>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="exampleInputPassword1">Password</label>
-                                                                    <input type="password" class="form-control"
-                                                                        id="exampleInputPassword1"
-                                                                        placeholder="Password">
-                                                                </div>
-                                                                <div class="form-check">
-                                                                    <input type="checkbox" class="form-check-input"
-                                                                        id="exampleCheck1">
-                                                                    <label class="form-check-label"
-                                                                        for="exampleCheck1">Check me out</label>
+                                                            <form action="animales.php">
+                                                                <div class="container-fluid">
+                                                                    <div class="row">
+                                                                        <div class="form-group col-md-6">
+                                                                            <label for="ani_id">ID</label>
+                                                                            <input type="text" class="form-control"
+                                                                                id="ani_id" aria-describedby="emailHelp"
+                                                                                placeholder="Ingrese ID">
+
+                                                                        </div>
+                                                                        <div class="form-group col-md-6">
+                                                                            <label for="ani_nombre">Nombre</label>
+                                                                            <input type="text" class="form-control"
+                                                                                id="ani_nombre"
+                                                                                aria-describedby="emailHelp"
+                                                                                placeholder="Ingrese Nombre">
+
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="form-group col-md-6">
+                                                                            <label for="ani_color">Color</label>
+                                                                            <input type="text" class="form-control"
+                                                                                id="ani_color"
+                                                                                aria-describedby="emailHelp"
+                                                                                placeholder="Ingrese Color">
+
+                                                                        </div>
+                                                                        <div class="form-group col-md-6">
+                                                                            <label for="ani_raza">Raza</label>
+                                                                            <input type="text" class="form-control"
+                                                                                id="ani_raza"
+                                                                                aria-describedby="emailHelp"
+                                                                                placeholder="Ingrese ingrese raza">
+
+                                                                        </div>
+
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="form-group col-md-6">
+                                                                            <label for="ani_altura">Altura</label>
+                                                                            <input type="text" class="form-control"
+                                                                                id="ani_altura"
+                                                                                aria-describedby="emailHelp"
+                                                                                placeholder="Ingrese Altura">
+
+                                                                        </div>
+                                                                        <div class="form-group col-md-6">
+                                                                            <label for="ani_peso">Peso</label>
+                                                                            <input type="text" class="form-control"
+                                                                                id="ani_peso"
+                                                                                aria-describedby="emailHelp"
+                                                                                placeholder="Ingrese Peso">
+
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="form-group col-md-12">
+                                                                            <label for="ani_cli_id">Id Cliente</label>
+                                                                            <input type="text" class="form-control"
+                                                                                id="ani_cli_id"
+                                                                                aria-describedby="emailHelp"
+                                                                                placeholder="Ingrese Id CLiente">
+
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                                 <button type="submit"
-                                                                    class="btn btn-primary">Submit</button>
+                                                                    class="btn btn-primary">agregar</button>
+
+
                                                             </form>
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary"
-                                                                data-dismiss="modal">Close</button>
-                                                            <button type="button" class="btn btn-primary">Save
-                                                                changes</button>
+                                                                data-dismiss="modal">Cerrar</button>
+                                                            <button type="submit"
+                                                                class="btn btn-primary">agregar</button>
                                                         </div>
                                                     </div>
                                                 </div>
