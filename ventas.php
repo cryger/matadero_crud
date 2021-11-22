@@ -188,7 +188,7 @@ $result = mysqli_query($mysqli, "SELECT * FROM venta ORDER BY ven_id DESC"); // 
                                                     echo "<td>" . $res['ven_descripcion'] . "</td>";
                                                     echo "<td>" . $res['ven_subtotal'] . "</td>";
                                                     echo "<td>" . $res['ven_total'] . "</td>";
-                                                    echo "<td><a class='btn btn-warning' href=\"edit.php?ven_id=$res[ven_id]\">Edit</a> | <a class='btn btn-danger' href=\"delete.php?ven_id=$res[ven_id]\" onClick=\"return confirm('Are you sure you want to delete?')\">Delete</a></td>";
+                                                    echo "<td><a class='btn btn-warning' href=\"edit_venta.php?ven_id=$res[ven_id]\">Edit</a> | <a class='btn btn-danger' href=\"delete_venta.php?ven_id=$res[ven_id]\" onClick=\"return confirm('Are you sure you want to delete?')\">Delete</a></td>";
                                                 }
                                                 ?>
                                             </tr>

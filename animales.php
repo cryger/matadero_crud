@@ -52,7 +52,7 @@ if (isset($_POST['Submit'])) {
         // if all the fields are filled (not empty) 
 
         //insert data to database	
-        $result = mysqli_query($mysqli, "INSERT INTO animal(ani_id,ani_nombre,ani_color,ani_raza,ani_altura,cli_telefono) VALUES('$ani_id','$ani_nombre','$ani_color','$ani_raza','$ani_altura','$ani_peso','')");
+        $result = mysqli_query($mysqli, "INSERT INTO animal(ani_id,ani_nombre,ani_color,ani_raza,ani_altura,ani_peso,ani_cli_id) VALUES('$ani_id','$ani_nombre','$ani_color','$ani_raza','$ani_altura','$ani_peso','$ani_cli_id')");
         var_dump($result);
         //display success message
         echo "<font color='green'>Data added successfully.";
@@ -83,7 +83,7 @@ if (isset($_POST['Submit'])) {
     <link rel="stylesheet" href="plugins/adminLTE/adminlte.min.css" />
 
     <!-- Custom css -->
-    <link rel="stylesheet" href="main.css" />
+    <link rel="stylesheet" href="./plugins/main.css" />
 </head>
 
 <body class="sidebar-mini sidebar-collapse layout-fixed layout-navbar-fixed">
@@ -231,21 +231,19 @@ if (isset($_POST['Submit'])) {
                                                             </button>
                                                         </div>
                                                         <div class="modal-body">
-                                                            <form action="animales.php">
+                                                            <form action="#" method="POST" id="form1">
                                                                 <div class="container-fluid">
                                                                     <div class="row">
                                                                         <div class="form-group col-md-6">
                                                                             <label for="ani_id">ID</label>
                                                                             <input type="text" class="form-control"
-                                                                                id="ani_id" aria-describedby="emailHelp"
-                                                                                placeholder="Ingrese ID">
+                                                                                id="ani_id" placeholder="Ingrese ID">
 
                                                                         </div>
                                                                         <div class="form-group col-md-6">
                                                                             <label for="ani_nombre">Nombre</label>
                                                                             <input type="text" class="form-control"
                                                                                 id="ani_nombre"
-                                                                                aria-describedby="emailHelp"
                                                                                 placeholder="Ingrese Nombre">
 
                                                                         </div>
@@ -255,7 +253,6 @@ if (isset($_POST['Submit'])) {
                                                                             <label for="ani_color">Color</label>
                                                                             <input type="text" class="form-control"
                                                                                 id="ani_color"
-                                                                                aria-describedby="emailHelp"
                                                                                 placeholder="Ingrese Color">
 
                                                                         </div>
@@ -263,7 +260,6 @@ if (isset($_POST['Submit'])) {
                                                                             <label for="ani_raza">Raza</label>
                                                                             <input type="text" class="form-control"
                                                                                 id="ani_raza"
-                                                                                aria-describedby="emailHelp"
                                                                                 placeholder="Ingrese ingrese raza">
 
                                                                         </div>
@@ -274,15 +270,13 @@ if (isset($_POST['Submit'])) {
                                                                             <label for="ani_altura">Altura</label>
                                                                             <input type="text" class="form-control"
                                                                                 id="ani_altura"
-                                                                                aria-describedby="emailHelp"
                                                                                 placeholder="Ingrese Altura">
 
                                                                         </div>
                                                                         <div class="form-group col-md-6">
                                                                             <label for="ani_peso">Peso</label>
-                                                                            <input type="text" class="form-control"
+                                                                            <input type="numeric" class="form-control"
                                                                                 id="ani_peso"
-                                                                                aria-describedby="emailHelp"
                                                                                 placeholder="Ingrese Peso">
 
                                                                         </div>
@@ -292,17 +286,44 @@ if (isset($_POST['Submit'])) {
                                                                             <label for="ani_cli_id">Id Cliente</label>
                                                                             <input type="text" class="form-control"
                                                                                 id="ani_cli_id"
-                                                                                aria-describedby="emailHelp"
                                                                                 placeholder="Ingrese Id CLiente">
 
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <button type="submit"
-                                                                    class="btn btn-primary">agregar</button>
+                                                                <button type="submit" class="btn btn-primary"
+                                                                    id="submit" name="submit"
+                                                                    value="submit">agregar</button>
 
 
                                                             </form>
+                                                            <script
+                                                                src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js">
+                                                            </script>
+                                                            <script>
+                                                            $(document).ready(function() {
+                                                                $("#submit").on('click', function() {
+                                                                    $.ajax({
+                                                                        url: 'addanimal2.php',
+                                                                        type: "POST",
+                                                                        dataType: 'json',
+                                                                        data: $("#form1")
+                                                                            .serialize(),
+                                                                        success: function(
+                                                                            result) {
+                                                                            console.log(
+                                                                                result);
+                                                                        },
+                                                                        error: function(xhr,
+                                                                            resp, text) {
+                                                                            console.log(xhr,
+                                                                                resp,
+                                                                                text);
+                                                                        }
+                                                                    })
+                                                                });
+                                                            });
+                                                            </script>
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary"

@@ -131,17 +131,64 @@
                             <h1>INICIO</h1>
                         </div>
                         <div class="container">
-                            <div class="card" style="width: 18rem">
-                                <img src="img/avatar3.png" class="card-img-top" alt="..." />
-                                <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
-                                    <p class="card-text">
-                                        Some quick example text to build on the card title and
-                                        make up the bulk of the card's content.
-                                    </p>
-                                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                            <form action="animales.php" method="POST" name="form1">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="form-group col-md-6">
+                                            <label for="ani_id">ID</label>
+                                            <input type="text" class="form-control" id="ani_id"
+                                                placeholder="Ingrese ID">
+
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="ani_nombre">Nombre</label>
+                                            <input type="text" class="form-control" id="ani_nombre"
+                                                placeholder="Ingrese Nombre">
+
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-6">
+                                            <label for="ani_color">Color</label>
+                                            <input type="text" class="form-control" id="ani_color"
+                                                placeholder="Ingrese Color">
+
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="ani_raza">Raza</label>
+                                            <input type="text" class="form-control" id="ani_raza"
+                                                placeholder="Ingrese ingrese raza">
+
+                                        </div>
+
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-6">
+                                            <label for="ani_altura">Altura</label>
+                                            <input type="text" class="form-control" id="ani_altura"
+                                                placeholder="Ingrese Altura">
+
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="ani_peso">Peso</label>
+                                            <input type="text" class="form-control" id="ani_peso"
+                                                placeholder="Ingrese Peso">
+
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-12">
+                                            <label for="ani_cli_id">Id Cliente</label>
+                                            <input type="text" class="form-control" id="ani_cli_id"
+                                                placeholder="Ingrese Id CLiente">
+
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
+                                <button type="submit" class="btn btn-primary" id="submit">agregar</button>
+
+
+                            </form>
                         </div>
                     </div>
                 </div>
