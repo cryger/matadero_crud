@@ -1,3 +1,54 @@
+<?php
+//including the database connection file
+include_once("config.php");
+
+if(isset($_POST['Submit'])) {	
+	$cli_id = mysqli_real_escape_string($mysqli, $_POST['cli_id']);
+	$cli_nombre = mysqli_real_escape_string($mysqli, $_POST['cli_nombre']);
+	$cli_apellido = mysqli_real_escape_string($mysqli, $_POST['cli_apellido']);
+    $cli_correo = mysqli_real_escape_string($mysqli, $_POST['cli_correo']);
+	$cli_direccion = mysqli_real_escape_string($mysqli, $_POST['cli_direccion']);
+	$cli_telefono = mysqli_real_escape_string($mysqli, $_POST['cli_telefono']);
+		
+	// checking empty fields
+	if(empty($cli_id) || empty($cli_nombre) || empty($cli_apellido)|| empty($cli_correo) || empty($cli_direccion)|| empty($cli_telefono)) {
+				
+		if(empty($cli_id)) {
+			echo "<font color='red'>ID field is empty.</font><br/>";
+		}
+		
+		if(empty($cli_nombre)) {
+			echo "<font color='red'>Nombre field is empty.</font><br/>";
+		}
+		
+		if(empty($cli_apellido)) {
+			echo "<font color='red'>Apellido field is empty.</font><br/>";
+		}
+        if(empty($cli_correo)) {
+			echo "<font color='red'>Correo field is empty.</font><br/>";
+		}
+        if(empty($cli_direccion)) {
+			echo "<font color='red'>Direccion field is empty.</font><br/>";
+		}
+        if(empty($cli_telefono)) {
+			echo "<font color='red'>Telefono field is empty.</font><br/>";
+		}
+		
+		//link to the previous page
+		echo "<br/><a href='javascript:self.history.back();'>Go Back</a>";
+	} else { 
+		// if all the fields are filled (not empty) 
+			
+		//insert data to database	
+		$result = mysqli_query($mysqli, "INSERT INTO cliente(cli_id,cli_nombre,cli_apellido,cli_correo,cli_direccion,cli_telefono) VALUES('$cli_id','$cli_nombre','$cli_apellido','$cli_correo','$cli_direccion','$cli_telefono')");
+		
+		//display success message
+		echo "<font color='green'>Data added successfully.";
+		echo "<br/><a href='index.php'>View Result</a>";
+	}
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -131,17 +182,46 @@
                             <h1>INICIO</h1>
                         </div>
                         <div class="container">
-                            <div class="card" style="width: 18rem">
-                                <img src="img/avatar3.png" class="card-img-top" alt="..." />
-                                <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
-                                    <p class="card-text">
-                                        Some quick example text to build on the card title and
-                                        make up the bulk of the card's content.
-                                    </p>
-                                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                            <div class="form-control table table-bordered">
+                                <div class="row">
+                                    <label for="">AGREGAR CLIENTE</label>
                                 </div>
+                                <form action="add.php" method="post" name="form1">
+
+                                    <div class="form-group">
+                                        <label>ID</label>
+                                        <input type="text" class="form-control" name="cli_id">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Nombre</label>
+                                        <input type="text" class="form-control" name="cli_nombre">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Apellido</label>
+                                        <input type="text" class="form-control" name="cli_apellido">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Correo</label>
+                                        <input type="text" class="form-control" name="cli_correo">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Direccion</label>
+                                        <input type="text" class="form-control" name="cli_direccion">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Telefono</label>
+                                        <input type="text" class="form-control" name="cli_telefono">
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="btn btn-success" type="submit" name="Submit" value="Add">
+                                    </div>
+
+                                </form>
+
                             </div>
+
+
+
                         </div>
                     </div>
                 </div>

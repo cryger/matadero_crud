@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>LuigSa</title>
+    <title>LuigSa | Ventas</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -128,20 +128,7 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>INICIO</h1>
-                        </div>
-                        <div class="container">
-                            <div class="card" style="width: 18rem">
-                                <img src="img/avatar3.png" class="card-img-top" alt="..." />
-                                <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
-                                    <p class="card-text">
-                                        Some quick example text to build on the card title and
-                                        make up the bulk of the card's content.
-                                    </p>
-                                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                                </div>
-                            </div>
+                            <h1>VENTAS</h1>
                         </div>
                     </div>
                 </div>
@@ -150,7 +137,8 @@
 
             <!-- MAIN CONTENT -->
             <section class="content">
-                <div class="container-fluid"></div>
+                <div class="container-fluid">
+                </div>
                 <!-- /.container-fluid -->
             </section>
             <!-- /MAIN CONTENT -->
@@ -189,7 +177,7 @@
             paging: true,
             lengthMenu: [
                 [10, 25, 50, -1],
-                [10, 25, 50, "All"],
+                [10, 25, 50, "All"]
             ],
             lengthChange: true,
             searching: true,

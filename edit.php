@@ -1,3 +1,70 @@
+<?php
+// including the database connection file
+include_once("config.php");
+
+if(isset($_POST['update']))
+{	
+
+	$cli_id = mysqli_real_escape_string($mysqli, $_POST['cli_id']);
+	
+	$cli_nombre = mysqli_real_escape_string($mysqli, $_POST['cli_nombre']);
+	$cli_apellido = mysqli_real_escape_string($mysqli, $_POST['cli_apellido']);
+    $cli_correo = mysqli_real_escape_string($mysqli, $_POST['cli_correo']);
+    $cli_direccion = mysqli_real_escape_string($mysqli, $_POST['cli_direccion']);
+	$cli_telefono = mysqli_real_escape_string($mysqli, $_POST['cli_telefono']);	
+	
+	// checking empty fields
+	if(empty($cli_id) || empty($cli_nombre) || empty($cli_apellido)||empty($cli_correo) || empty($cli_direccion) || empty($cli_telefono) ) {	
+			
+		if(empty($cli_id)) {
+			echo "<font color='red'>ID field is empty.</font><br/>";
+		}
+		
+		if(empty($cli_nombre)) {
+			echo "<font color='red'>nombre field is empty.</font><br/>";
+		}
+		
+		if(empty($cli_apellido)) {
+			echo "<font color='red'>apellido field is empty.</font><br/>";
+		}	
+        if(empty($cli_correo)) {
+			echo "<font color='red'>correo field is empty.</font><br/>";
+		}
+		
+		if(empty($cli_direccion)) {
+			echo "<font color='red'>direccion field is empty.</font><br/>";
+		}
+		
+		if(empty($cli_telefono)) {
+			echo "<font color='red'>telefono field is empty.</font><br/>";
+		}	
+	} else {	
+		//updating the table
+		$result = mysqli_query($mysqli, "UPDATE cliente SET cli_id='$cli_id',cli_nombre='$cli_nombre',cli_apellido='$cli_apellido',cli_correo='$cli_correo',cli_direccion='$cli_direccion',cli_telefono='$cli_telefono' WHERE cli_id=$cli_id");
+		
+		//redirectig to the display page. In our case, it is index.php
+		header("Location: clientes.php");
+	}
+}
+?>
+<?php
+//getting id from url
+$cli_id = $_GET['cli_id'];
+
+//selecting data associated with this particular id
+$result = mysqli_query($mysqli, "SELECT * FROM cliente WHERE cli_id=$cli_id");
+
+while($res = mysqli_fetch_array($result))
+{
+	$cli_id = $res['cli_id'];
+    $cli_nombre = $res['cli_nombre'];
+    $cli_apellido = $res['cli_apellido'];
+    $cli_correo = $res['cli_correo'];
+    $cli_direccion = $res['cli_direccion'];
+	$cli_telefono = $res['cli_telefono'];
+	
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -81,7 +148,7 @@
                         <li class="nav-item">
                             <a href="./index.php" class="nav-link">
                                 <i class="nav-icon fas fa-home"></i>
-                                <p>INICIO</p>
+                                <p>EDITAR</p>
                             </a>
                         </li>
 
@@ -130,16 +197,58 @@
                         <div class="col-sm-6">
                             <h1>INICIO</h1>
                         </div>
+                        <!--/Section of contenido de la pagina de editar -->
+
                         <div class="container">
-                            <div class="card" style="width: 18rem">
-                                <img src="img/avatar3.png" class="card-img-top" alt="..." />
-                                <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
-                                    <p class="card-text">
-                                        Some quick example text to build on the card title and
-                                        make up the bulk of the card's content.
-                                    </p>
-                                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                            <div class="row">
+                                <div class="form-control">
+                                    <a href="index.php">Home</a>
+                                    <br /><br />
+                                    <div class="table table-bordered">
+                                        <form name="form1" method="post" action="edit.php">
+                                            <div class="form-group">
+                                                <label>ID</label>
+                                                <input type="text" class="form-control" name="cli_id"
+                                                    value="<?php echo $cli_id;?>">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Nombre</label>
+                                                <input type="text" class="form-control" name="cli_nombre"
+                                                    value="<?php echo $cli_nombre;?>">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Apellido</label>
+                                                <input type="text" class="form-control" name="cli_apellido"
+                                                    value="<?php echo $cli_apellido;?>">
+
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Correo</label>
+                                                <input type="text" class="form-control" name="cli_correo"
+                                                    value="<?php echo $cli_correo;?>">
+
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Direccion</label>
+                                                <input type="text" class="form-control" name="cli_direccion"
+                                                    value="<?php echo $cli_direccion;?>">
+
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Telefono</label>
+                                                <input type="text" class="form-control" name="cli_telefono"
+                                                    value="<?php echo $cli_telefono;?>">
+
+                                            </div>
+                                            <td><input type="hidden" name="cli_id" value=<?php echo $_GET['cli_id'];?>>
+                                            </td>
+                                            <td><input class="btn btn-info form-control" type="submit" name="update"
+                                                    value="Update">
+                                            </td>
+                                        </form>
+                                    </div>
+
+
                                 </div>
                             </div>
                         </div>

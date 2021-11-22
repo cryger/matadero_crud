@@ -1,3 +1,76 @@
+<?php
+// including the database connection file
+include_once("config.php");
+
+if(isset($_POST['update']))
+{	
+
+	$ani_id = mysqli_real_escape_string($mysqli, $_POST['ani_id']);
+	
+	$ani_nombre = mysqli_real_escape_string($mysqli, $_POST['ani_nombre']);
+	$ani_color = mysqli_real_escape_string($mysqli, $_POST['ani_color']);
+    $ani_raza = mysqli_real_escape_string($mysqli, $_POST['ani_raza']);
+    $ani_altura = mysqli_real_escape_string($mysqli, $_POST['ani_altura']);
+	$ani_peso = mysqli_real_escape_string($mysqli, $_POST['ani_peso']);
+    $ani_cli_id = mysqli_real_escape_string($mysqli, $_POST['ani_cli_id']);	
+	
+	// checking empty fields
+	if(empty($ani_id) || empty($ani_nombre) || empty($ani_color)||empty($ani_raza) || empty($ani_altura) || empty($ani_peso) || empty($ani_cli_id) ) {	
+			
+		if(empty($ani_id)) {
+			echo "<font color='red'>ID field is empty.</font><br/>";
+		}
+		
+		if(empty($ani_nombre)) {
+			echo "<font color='red'>nombre field is empty.</font><br/>";
+		}
+		
+		if(empty($ani_color)) {
+			echo "<font color='red'>color field is empty.</font><br/>";
+		}	
+        if(empty($ani_raza)) {
+			echo "<font color='red'>raza field is empty.</font><br/>";
+		}
+		
+		if(empty($ani_altura)) {
+			echo "<font color='red'>altura field is empty.</font><br/>";
+		}
+		
+		if(empty($ani_peso)) {
+			echo "<font color='red'>peso field is empty.</font><br/>";
+		}	
+        if(empty($ani_cli_id)) {
+			echo "<font color='red'>ID del cliente field is empty.</font><br/>";
+		}
+	} else {	
+		//updating the table
+		$result = mysqli_query($mysqli, "UPDATE animal SET ani_id='$ani_id',ani_nombre='$ani_nombre',ani_color='$ani_color',ani_raza='$ani_raza',ani_altura='$ani_altura',ani_peso='$ani_peso' WHERE ani_id=$ani_id");
+		
+		//redirectig to the display page. In our case, it is index.php
+		header("Location: animal.php");
+	}
+}
+?>
+<?php
+//getting id from url
+$ani_id = $_GET['ani_id'];
+
+//selecting data associated with this particular id
+$result = mysqli_query($mysqli, "SELECT * FROM animal WHERE ani_id=$ani_id");
+
+while($res = mysqli_fetch_array($result))
+{
+    
+	$ani_id = $res['ani_id'];
+    $ani_nombre = $res['ani_nombre'];
+    $ani_color = $res['ani_color'];
+    $ani_raza = $res['ani_raza'];
+    $ani_altura = $res['ani_altura'];
+	$ani_peso = $res['ani_peso'];
+    $ani_cli_id = $res['ani_cli_id'];
+	
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -81,7 +154,7 @@
                         <li class="nav-item">
                             <a href="./index.php" class="nav-link">
                                 <i class="nav-icon fas fa-home"></i>
-                                <p>INICIO</p>
+                                <p>EDITAR</p>
                             </a>
                         </li>
 
@@ -130,16 +203,58 @@
                         <div class="col-sm-6">
                             <h1>INICIO</h1>
                         </div>
+                        <!--/Section of contenido de la pagina de editar -->
+
                         <div class="container">
-                            <div class="card" style="width: 18rem">
-                                <img src="img/avatar3.png" class="card-img-top" alt="..." />
-                                <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
-                                    <p class="card-text">
-                                        Some quick example text to build on the card title and
-                                        make up the bulk of the card's content.
-                                    </p>
-                                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                            <div class="row">
+                                <div class="form-control">
+                                    <a href="index.php">Home</a>
+                                    <br /><br />
+                                    <div class="table table-bordered">
+                                        <form name="form1" method="post" action="edit.php">
+                                            <div class="form-group">
+                                                <label>ID</label>
+                                                <input type="text" class="form-control" name="ani_id"
+                                                    value="<?php echo $ani_id;?>">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Nombre</label>
+                                                <input type="text" class="form-control" name="ani_nombre"
+                                                    value="<?php echo $ani_nombre;?>">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Apellido</label>
+                                                <input type="text" class="form-control" name="ani_color"
+                                                    value="<?php echo $ani_color;?>">
+
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Correo</label>
+                                                <input type="text" class="form-control" name="ani_raza"
+                                                    value="<?php echo $ani_raza;?>">
+
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Direccion</label>
+                                                <input type="text" class="form-control" name="ani_altura"
+                                                    value="<?php echo $ani_altura;?>">
+
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Telefono</label>
+                                                <input type="text" class="form-control" name="ani_peso"
+                                                    value="<?php echo $ani_peso;?>">
+
+                                            </div>
+                                            <td><input type="hidden" name="ani_id" value=<?php echo $_GET['ani_id'];?>>
+                                            </td>
+                                            <td><input class="btn btn-info form-control" type="submit" name="update"
+                                                    value="Update">
+                                            </td>
+                                        </form>
+                                    </div>
+
+
                                 </div>
                             </div>
                         </div>
