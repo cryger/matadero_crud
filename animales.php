@@ -17,9 +17,10 @@ if (isset($_POST['Submit'])) {
     $ani_raza = mysqli_real_escape_string($mysqli, $_POST['ani_raza']);
     $ani_altura = mysqli_real_escape_string($mysqli, $_POST['ani_altura']);
     $ani_peso = mysqli_real_escape_string($mysqli, $_POST['ani_peso']);
+    $ani_cli_id = mysqli_real_escape_string($mysqli, $_POST['ani_cli_id']);
 
     // checking empty fields
-    if (empty($ani_id) || empty($ani_nombre) || empty($ani_color) || empty($ani_raza) || empty($ani_altura) || empty($ani_peso)) {
+    if (empty($ani_id) || empty($ani_nombre) || empty($ani_color) || empty($ani_raza) || empty($ani_altura) || empty($ani_peso) || empty($ani_cli_id)) {
 
         if (empty($ani_id)) {
             echo "<font color='red'>ID field is empty.</font><br/>";
@@ -30,16 +31,19 @@ if (isset($_POST['Submit'])) {
         }
 
         if (empty($ani_color)) {
-            echo "<font color='red'>Apellido field is empty.</font><br/>";
+            echo "<font color='red'>Color field is empty.</font><br/>";
         }
         if (empty($ani_raza)) {
-            echo "<font color='red'>Correo field is empty.</font><br/>";
+            echo "<font color='red'>Raza field is empty.</font><br/>";
         }
         if (empty($ani_altura)) {
-            echo "<font color='red'>Direccion field is empty.</font><br/>";
+            echo "<font color='red'>Altura field is empty.</font><br/>";
         }
         if (empty($ani_peso)) {
-            echo "<font color='red'>Telefono field is empty.</font><br/>";
+            echo "<font color='red'>Peso field is empty.</font><br/>";
+        }
+        if (empty($ani_cli_id)) {
+            echo "<font color='red'>Cliente ID field is empty.</font><br/>";
         }
 
         //link to the previous page
@@ -49,7 +53,7 @@ if (isset($_POST['Submit'])) {
 
         //insert data to database	
         $result = mysqli_query($mysqli, "INSERT INTO animal(ani_id,ani_nombre,ani_color,ani_raza,ani_altura,cli_telefono) VALUES('$ani_id','$ani_nombre','$ani_color','$ani_raza','$ani_altura','$ani_peso','')");
-        var_dump($reesul);
+        var_dump($result);
         //display success message
         echo "<font color='green'>Data added successfully.";
         echo "<br/><a href='index.php'>View Result</a>";
@@ -303,8 +307,8 @@ if (isset($_POST['Submit'])) {
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary"
                                                                 data-dismiss="modal">Cerrar</button>
-                                                            <button type="submit"
-                                                                class="btn btn-primary">agregar</button>
+                                                            <button type="submit" class="btn btn-primary"
+                                                                id="submit">agregar</button>
                                                         </div>
                                                     </div>
                                                 </div>
