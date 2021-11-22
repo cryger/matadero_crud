@@ -4,7 +4,7 @@ include_once("config.php");
 
 //fetching data in descending order (lastest entry first)
 //$result = mysql_query("SELECT * FROM users ORDER BY id DESC"); // mysql_query is deprecated
-$result = mysqli_query($mysqli, "SELECT * FROM cliente ORDER BY cli_id DESC"); // using mysqli_query instead
+$result = mysqli_query($mysqli, "SELECT * FROM pedido ORDER BY ped_id DESC"); // using mysqli_query instead
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -163,11 +163,9 @@ $result = mysqli_query($mysqli, "SELECT * FROM cliente ORDER BY cli_id DESC"); /
                                         <thead>
                                             <tr>
                                                 <th>ID</th>
-                                                <th>NOMBRE</th>
-                                                <th>APELLIDO</th>
-                                                <th>CORREO</th>
-                                                <th>DIRECCION</th>
-                                                <th>TELEFONO</th>
+                                                <th>ID CLIENTE</th>
+                                                <th>DESCRIPCION DE PEDIDO</th>
+
                                                 <th>ACCIONES</th>
                                             </tr>
                                         </thead>
@@ -178,13 +176,11 @@ $result = mysqli_query($mysqli, "SELECT * FROM cliente ORDER BY cli_id DESC"); /
                                                 //while($res = mysql_fetch_array($result)) { // mysql_fetch_array is deprecated, we need to use mysqli_fetch_array 
                                                 while ($res = mysqli_fetch_array($result)) {
                                                     echo "<tr>";
-                                                    echo "<td>" . $res['cli_id'] . "</td>";
-                                                    echo "<td>" . $res['cli_nombre'] . "</td>";
-                                                    echo "<td>" . $res['cli_apellido'] . "</td>";
-                                                    echo "<td>" . $res['cli_correo'] . "</td>";
-                                                    echo "<td>" . $res['cli_direccion'] . "</td>";
-                                                    echo "<td>" . $res['cli_telefono'] . "</td>";
-                                                    echo "<td><a class='btn btn-warning' href=\"edit.php?cli_id=$res[cli_id]\">Edit</a> | <a class='btn btn-danger' href=\"delete.php?cli_id=$res[cli_id]\" onClick=\"return confirm('Are you sure you want to delete?')\">Delete</a></td>";
+                                                    echo "<td>" . $res['ped_id'] . "</td>";
+                                                    echo "<td>" . $res['ped_id_cliente'] . "</td>";
+                                                    echo "<td>" . $res['ped_decripcion'] . "</td>";
+
+                                                    echo "<td><a class='btn btn-warning' href=\"edit_pedido.php?ped_id=$res[ped_id]\">Edit</a> | <a class='btn btn-danger' href=\"delete_pedido.php?ped_id=$res[ped_id]\" onClick=\"return confirm('Are you sure you want to delete?')\">Delete</a></td>";
                                                 }
                                                 ?>
                                             </tr>
